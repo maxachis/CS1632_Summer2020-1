@@ -1,8 +1,9 @@
 //TODO: Import libraries as needed
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SortedCollection {
 	// TODO: Add member variables or methods as needed
+	public ArrayList<Integer> coreList = new ArrayList<Integer>();
 
 	/**
 	 * Adds the number n to the collection.
@@ -11,6 +12,8 @@ public class SortedCollection {
 	 * @return always returns true
 	 */
 	public boolean add(int n) {
+		coreList.add(n);
+		Collections.sort(coreList);
 		// TODO: Implement
 		return true;
 	}
@@ -21,8 +24,14 @@ public class SortedCollection {
 	 * @return the smallest number in the collection
 	 */
 	public int remove() throws NoSuchElementException {
+		if (coreList.size() <= 0) {
+			throw new NoSuchElementException();
+		}
+		int num = coreList.get(0);
+		coreList.remove(0);
+		return num;
 		// TODO: Implement
-		return 0;
+		// return 0;
 	}
 
 	/**
@@ -45,6 +54,10 @@ public class SortedCollection {
 			return;
 		}
 		
+		for (int i = 0; i < args.length; i++ ) {
+			collection.add(Integer.parseInt(args[i]));
+		}
+
 		// TODO: add numbers in commandline arguments to collection using the add(int) method.
 		// If any commandline argument is not a number, call showUsage() and return.
 		
