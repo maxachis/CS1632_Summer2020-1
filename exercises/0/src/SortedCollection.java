@@ -55,7 +55,11 @@ public class SortedCollection {
 		}
 		
 		for (int i = 0; i < args.length; i++ ) {
-			collection.add(Integer.parseInt(args[i]));
+			try {
+				collection.add(Integer.parseInt(args[i]));
+			} catch(NumberFormatException e) {
+				System.exit(0);
+			}
 		}
 
 		// TODO: add numbers in commandline arguments to collection using the add(int) method.
