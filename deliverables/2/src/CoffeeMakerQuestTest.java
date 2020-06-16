@@ -147,7 +147,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testGetCurrentRoom() {
-		// TODO
+		assertNull(cmq.getCurrentRoom());
 	}
 	
 	/**
@@ -161,7 +161,8 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testSetCurrentRoom() {
-		// TODO
+		assertTrue(cmq.setCurrentRoom(room3));
+		assertEquals(cmq.getCurrentRoom(), room3);
 	}
 	
 	/**
@@ -172,7 +173,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandI() {
-		// TODO
+		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 	
 	/**
@@ -185,7 +186,9 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandLCream() {
-		// TODO
+		cmq.setCurrentRoom(room1);
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		Mockito.verify(player).addItem(Item.CREAM);
 	}
 	
 	/**
@@ -199,7 +202,9 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandN() {
-		// TODO
+		cmq.setCurrentRoom(room4);
+		assertEquals(cmq.processCommand("n"), "");
+		assertEquals(cmq.getCurrentRoom(), room5);
 	}
 	
 	/**
@@ -213,7 +218,9 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandS() {
-		// TODO
+		cmq.setCurrentRoom(room1);
+		assertEquals(cmq.processCommand("s"),"A door in that direction does not exist.\n");
+		assertEquals(cmq.getCurrentRoom(), room1);
 	}
 	
 	/**
@@ -226,7 +233,8 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDLose() {
-		// TODO
+		assertEquals(cmq.processCommand("D"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n" );
+		assertTrue(cmq.isGameOver());
 	}
 	
 	/**
@@ -239,7 +247,11 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDWin() {
-		// TODO
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+		assertTrue(cmq.isGameOver());
 	}
 	
 	// TODO: Put in more unit tests of your own making to improve coverage!
