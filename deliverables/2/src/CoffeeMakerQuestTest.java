@@ -27,16 +27,54 @@ public class CoffeeMakerQuestTest {
 
 		// TODO: 2. Create a mock Player and assign to player and call cmq.setPlayer(player). 
 		// Player should not have any items (no coffee, no cream, no sugar)
+		Player p = Mockito.mock(Player.class);
+		cmq.setPlayer(player);
 
 		// TODO: 3. Create mock Rooms and assign to room1, room2, ..., room6.
+		Room r1 = Mockito.mock(Room.class);
+		Room r2 = Mockito.mock(Room.class);
+		Room r3 = Mockito.mock(Room.class);
+		Room r4 = Mockito.mock(Room.class);
+		Room r5 = Mockito.mock(Room.class);
+		Room r6 = Mockito.mock(Room.class);
+		
+		//MockItems
+		
+		
 		// Mimic the furnishings / adjectives / items of the rooms in the original Coffee Maker Quest.
+		Mockito.when(r1.getFurnishing()).thenReturn("Quaint sofa");
+		Mockito.when(r2.getFurnishing()).thenReturn("Sad record player");
+		Mockito.when(r3.getFurnishing()).thenReturn("Tight pizza");
+		Mockito.when(r4.getFurnishing()).thenReturn("Flat energy drink");
+		Mockito.when(r5.getFurnishing()).thenReturn("Beautiful bag of money");
+		Mockito.when(r6.getFurnishing()).thenReturn("Perfect air hockey table");
+		// Adjectives		
+		Mockito.when(r1.getAdjective()).thenReturn("Small");
+		Mockito.when(r2.getAdjective()).thenReturn("Funny");
+		Mockito.when(r3.getAdjective()).thenReturn("Refinanced");
+		Mockito.when(r4.getAdjective()).thenReturn("Dumb");
+		Mockito.when(r5.getAdjective()).thenReturn("Bloodthirsty");
+		Mockito.when(r6.getAdjective()).thenReturn("Rough");
+		//Items
+		Mockito.when(r1.getItem()).thenReturn(Item.CREAM);
+		Mockito.when(r2.getItem()).thenReturn(Item.NONE);
+		Mockito.when(r3.getItem()).thenReturn(Item.COFFEE);
+		Mockito.when(r4.getItem()).thenReturn(Item.NONE);
+		Mockito.when(r5.getItem()).thenReturn(Item.NONE);
+		Mockito.when(r6.getItem()).thenReturn(Item.SUGAR);
 		
 		// TODO: 4. Add the rooms created above to mimic the layout of the original Coffee Maker Quest.
-		
+		cmq.addFirstRoom(r1);
+		cmq.addRoomAtNorth(r2, "Magenta", "Massive");
+		cmq.addRoomAtNorth(r3, "Beige", "Smart");
+		cmq.addRoomAtNorth(r4, "Dead", "Slim");
+		cmq.addRoomAtNorth(r5, "Vivacious", "Sandy");
+		cmq.addRoomAtNorth(r6, "Purple", "Minimalist");
 	}
 
 	@After
 	public void tearDown() {
+		cmq = null;
 	}
 	
 	/**
