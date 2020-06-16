@@ -31,45 +31,45 @@ public class CoffeeMakerQuestTest {
 		cmq.setPlayer(player);
 
 		// TODO: 3. Create mock Rooms and assign to room1, room2, ..., room6.
-		Room r1 = Mockito.mock(Room.class);
-		Room r2 = Mockito.mock(Room.class);
-		Room r3 = Mockito.mock(Room.class);
-		Room r4 = Mockito.mock(Room.class);
-		Room r5 = Mockito.mock(Room.class);
-		Room r6 = Mockito.mock(Room.class);
+		room1 = Mockito.mock(Room.class);
+		room2 = Mockito.mock(Room.class);
+		room3 = Mockito.mock(Room.class);
+		room4 = Mockito.mock(Room.class);
+		room5 = Mockito.mock(Room.class);
+		room6 = Mockito.mock(Room.class);
 		
 		//MockItems
 		
 		
 		// Mimic the furnishings / adjectives / items of the rooms in the original Coffee Maker Quest.
-		Mockito.when(r1.getFurnishing()).thenReturn("Quaint sofa");
-		Mockito.when(r2.getFurnishing()).thenReturn("Sad record player");
-		Mockito.when(r3.getFurnishing()).thenReturn("Tight pizza");
-		Mockito.when(r4.getFurnishing()).thenReturn("Flat energy drink");
-		Mockito.when(r5.getFurnishing()).thenReturn("Beautiful bag of money");
-		Mockito.when(r6.getFurnishing()).thenReturn("Perfect air hockey table");
+		Mockito.when(room1.getFurnishing()).thenReturn("Quaint sofa");
+		Mockito.when(room2.getFurnishing()).thenReturn("Sad record player");
+		Mockito.when(room3.getFurnishing()).thenReturn("Tight pizza");
+		Mockito.when(room4.getFurnishing()).thenReturn("Flat energy drink");
+		Mockito.when(room5.getFurnishing()).thenReturn("Beautiful bag of money");
+		Mockito.when(room6.getFurnishing()).thenReturn("Perfect air hockey table");
 		// Adjectives		
-		Mockito.when(r1.getAdjective()).thenReturn("Small");
-		Mockito.when(r2.getAdjective()).thenReturn("Funny");
-		Mockito.when(r3.getAdjective()).thenReturn("Refinanced");
-		Mockito.when(r4.getAdjective()).thenReturn("Dumb");
-		Mockito.when(r5.getAdjective()).thenReturn("Bloodthirsty");
-		Mockito.when(r6.getAdjective()).thenReturn("Rough");
+		Mockito.when(room1.getAdjective()).thenReturn("Small");
+		Mockito.when(room2.getAdjective()).thenReturn("Funny");
+		Mockito.when(room3.getAdjective()).thenReturn("Refinanced");
+		Mockito.when(room4.getAdjective()).thenReturn("Dumb");
+		Mockito.when(room5.getAdjective()).thenReturn("Bloodthirsty");
+		Mockito.when(room6.getAdjective()).thenReturn("Rough");
 		//Items
-		Mockito.when(r1.getItem()).thenReturn(Item.CREAM);
-		Mockito.when(r2.getItem()).thenReturn(Item.NONE);
-		Mockito.when(r3.getItem()).thenReturn(Item.COFFEE);
-		Mockito.when(r4.getItem()).thenReturn(Item.NONE);
-		Mockito.when(r5.getItem()).thenReturn(Item.NONE);
-		Mockito.when(r6.getItem()).thenReturn(Item.SUGAR);
+		Mockito.when(room1.getItem()).thenReturn(Item.CREAM);
+		Mockito.when(room2.getItem()).thenReturn(Item.NONE);
+		Mockito.when(room3.getItem()).thenReturn(Item.COFFEE);
+		Mockito.when(room4.getItem()).thenReturn(Item.NONE);
+		Mockito.when(room5.getItem()).thenReturn(Item.NONE);
+		Mockito.when(room6.getItem()).thenReturn(Item.SUGAR);
 		
 		// TODO: 4. Add the rooms created above to mimic the layout of the original Coffee Maker Quest.
-		cmq.addFirstRoom(r1);
-		cmq.addRoomAtNorth(r2, "Magenta", "Massive");
-		cmq.addRoomAtNorth(r3, "Beige", "Smart");
-		cmq.addRoomAtNorth(r4, "Dead", "Slim");
-		cmq.addRoomAtNorth(r5, "Vivacious", "Sandy");
-		cmq.addRoomAtNorth(r6, "Purple", "Minimalist");
+		cmq.addFirstRoom(room1);
+		cmq.addRoomAtNorth(room2, "Magenta", "Massive");
+		cmq.addRoomAtNorth(room3, "Beige", "Smart");
+		cmq.addRoomAtNorth(room4, "Dead", "Slim");
+		cmq.addRoomAtNorth(room5, "Vivacious", "Sandy");
+		cmq.addRoomAtNorth(room6, "Purple", "Minimalist");
 	}
 
 	@After
@@ -85,7 +85,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testGetInstructionsString() {
-		// TODO
+		assertEquals(cmq.getInstructionsString(), " INSTRUCTIONS (N,S,L,I,D,H) > ");
 	}
 	
 	/**
@@ -97,7 +97,9 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testAddFirstRoom() {
-		// TODO
+		Room myRoom = Mockito.mock(Room.class);
+		assertEquals(cmq.addFirstRoom(myRoom), false);
+
 	}
 	
 	/**
@@ -111,7 +113,11 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testAddRoomAtNorthUnique() {
-		// TODO
+		Room myRoom = Mockito.mock(Room.class);
+		Mockito.when(myRoom.getFurnishing()).thenReturn("Fake bed");
+		assertTrue(cmq.addRoomAtNorth(myRoom, "North", "South"));
+		Mockito.verify(room6).setNorthDoor("North");
+		Mockito.verify(myRoom).setSouthDoor("South");
 	}
 	
 	/**
@@ -125,7 +131,11 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testAddRoomAtNorthDuplicate() {
-		// TODO
+		Room myRoom = Mockito.mock(Room.class);
+		Mockito.when(myRoom.getFurnishing()).thenReturn("Flat energy drink");
+		assertFalse(cmq.addRoomAtNorth(myRoom, "North", "South"));
+		Mockito.verify(myRoom, times(0)).setNorthDoor("North");
+		Mockito.verify(myRoom, times(0)).setSouthDoor("South");
 	}
 	
 	/**
