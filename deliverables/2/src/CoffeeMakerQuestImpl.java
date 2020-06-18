@@ -28,7 +28,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 */
 	public boolean isGameOver() {
 		// TODO
-		return false;
+		return this.gameOver;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @param p the player
 	 */
 	public void setPlayer(Player p) {
-		player = p;
+		this.player = p;
 	}
 	
 	/**
