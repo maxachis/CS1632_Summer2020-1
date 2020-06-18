@@ -9,8 +9,16 @@ enum Item {
 
 public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 
+	private Player player;
+	private ArrayList<Room> rooms;
+	private boolean gameOver;
+	private int currentRoom;
+
 	CoffeeMakerQuestImpl() {
-		// TODO
+		this.player = null;
+		this.rooms = new ArrayList();
+		this.gameOver = false;
+		this.currentRoom = -1;
 	}
 
 	/**
@@ -29,7 +37,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @param p the player
 	 */
 	public void setPlayer(Player p) {
-		// TODO
+		player = p;
 	}
 	
 	/**
