@@ -85,7 +85,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testGetInstructionsString() {
-		assertEquals(cmq.getInstructionsString(), " INSTRUCTIONS (N,S,L,I,D,H) > ");
+		assertEquals(" INSTRUCTIONS (N,S,L,I,D,H) > ", cmq.getInstructionsString());
 	}
 	
 	/**
