@@ -28,7 +28,7 @@ public class CoffeeMakerQuestTest {
 		// TODO: 2. Create a mock Player and assign to player and call cmq.setPlayer(player). 
 		// Player should not have any items (no coffee, no cream, no sugar)
 		Player p = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
+		cmq.setPlayer(p);
 
 		// TODO: 3. Create mock Rooms and assign to room1, room2, ..., room6.
 		room1 = Mockito.mock(Room.class);
@@ -247,13 +247,132 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDWin() {
-		Mockito.when(player.checkCoffee()).thenReturn(true);
-		Mockito.when(player.checkSugar()).thenReturn(true);
-		Mockito.when(player.checkCream()).thenReturn(true);
+		Player p = Mockito.mock(Player.class);
+		Mockito.when(p.checkCoffee()).thenReturn(true);
+		Mockito.when(p.checkSugar()).thenReturn(true);
+		Mockito.when(p.checkCream()).thenReturn(true);
+		cmq.setPlayer(p);
 		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
 		assertTrue(cmq.isGameOver());
 	}
 	
 	// TODO: Put in more unit tests of your own making to improve coverage!
+	
+	@Test
+	public void testProcessCommandDWinLower() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandDLoseLower() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandSUpper() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandNUpper() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandSLower() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandLUpper() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandILower() {
+		
+	}
+	
+	//tests if player can go south when door exists to south
+	@Test
+	public void testProcessCommandSDoor() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandLCoffee() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandLSugar() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandLNothing() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandNNoDoor() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandHUpper() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandHLower() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandInvalidLetter() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandInvalidNum() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandInvalidSpace() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandInvalidSpecialChar() {
+		
+	}
+	
+	@Test
+	public void testProcessCommandIAllItems() {
+		
+	}
+	
+	//	Attempt to obtain Cream multiple times
+	@Test
+	public void testProcessCommandLCreamRepeated() {
+		
+	}
+	
+	@Test
+	public void testProcessUniqueDoors() {
+		
+	}
+	
+	@Test
+	public void testProcessUniqueFurnishings() {
+		
+	}
+	
+	public void testProcessUniqueAdjectives() {
+		
+	}
+	
 	
 }
