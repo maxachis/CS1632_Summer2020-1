@@ -7,6 +7,7 @@ enum Item {
 	SUGAR
 }
 
+
 public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 
 	private Player player;
@@ -48,8 +49,12 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return true if successful, false otherwise
 	 */
 	public boolean addFirstRoom(Room room) {
-		// TODO
-		return false;
+		if(room == null || !rooms.isEmpty()){
+			return false;
+		}
+
+		rooms.add(room);
+		return true;
 	}
 
 	/**
