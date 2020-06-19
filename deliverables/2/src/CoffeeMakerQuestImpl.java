@@ -99,7 +99,9 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 */ 
 	public Room getCurrentRoom() {
 		// TODO
-		return null;
+		if (currentRoom == -1) return null;
+		
+		return rooms.get(currentRoom);
 	}
 	
 	/**
