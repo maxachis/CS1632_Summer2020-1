@@ -27,8 +27,8 @@ public class CoffeeMakerQuestTest {
 
 		// TODO: 2. Create a mock Player and assign to player and call cmq.setPlayer(player). 
 		// Player should not have any items (no coffee, no cream, no sugar)
-		Player p = Mockito.mock(Player.class);
-		cmq.setPlayer(p);
+		Player player = Mockito.mock(Player.class);
+		cmq.setPlayer(player);
 
 		// TODO: 3. Create mock Rooms and assign to room1, room2, ..., room6.
 		room1 = Mockito.mock(Room.class);
@@ -85,7 +85,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testGetInstructionsString() {
-		assertEquals(cmq.getInstructionsString(), " INSTRUCTIONS (N,S,L,I,D,H) > ");
+		assertEquals(" INSTRUCTIONS (N,S,L,I,D,H) > ", cmq.getInstructionsString());
 	}
 	
 	/**
@@ -99,7 +99,6 @@ public class CoffeeMakerQuestTest {
 	public void testAddFirstRoom() {
 		Room myRoom = Mockito.mock(Room.class);
 		assertEquals(cmq.addFirstRoom(myRoom), false);
-
 	}
 	
 	/**
@@ -247,11 +246,11 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDWin() {
-		Player p = Mockito.mock(Player.class);
-		Mockito.when(p.checkCoffee()).thenReturn(true);
-		Mockito.when(p.checkSugar()).thenReturn(true);
-		Mockito.when(p.checkCream()).thenReturn(true);
-		cmq.setPlayer(p);
+		Player player = Mockito.mock(Player.class);
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		cmq.setPlayer(player);
 		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
 		assertTrue(cmq.isGameOver());
 	}
