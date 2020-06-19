@@ -353,9 +353,19 @@ public class CoffeeMakerQuestTest {
 		Mockito.verify(player).addItem(Item.COFFEE);
 	}
 	
+	/**
+	 * Test case for String processCommand("l").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room6) has been called.
+	 * Execution steps: Call cmq.processCommand("l").
+	 * Postconditions: Return value is "There might be something here...\nYou found some coffee!\n".
+	 *                 player.addItem(Item.SUGAR) is called.
+	 */
 	@Test
 	public void testProcessCommandLSugar() {
-		
+		cmq.setCurrentRoom(room6);
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		Mockito.verify(player).addItem(Item.SUGAR);
 	}
 	
 	@Test
