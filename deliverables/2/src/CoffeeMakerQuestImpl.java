@@ -1,12 +1,8 @@
 import java.util.*;
 
 enum Item {
-	NONE,
-	COFFEE,
-	CREAM,
-	SUGAR
+	NONE, COFFEE, CREAM, SUGAR
 }
-
 
 public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 
@@ -40,7 +36,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	public void setPlayer(Player p) {
 		this.player = p;
 	}
-	
+
 	/**
 	 * Add the first room in the game. If room is null or if this not the first room
 	 * (there are pre-exiting rooms), the room is not added and false is returned.
@@ -49,7 +45,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return true if successful, false otherwise
 	 */
 	public boolean addFirstRoom(Room room) {
-		if(room == null || !rooms.isEmpty()){
+		if (room == null || !rooms.isEmpty()) {
 			return false;
 		}
 
@@ -72,22 +68,24 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 */
 	public boolean addRoomAtNorth(Room room, String northDoor, String southDoor) {
 
-		if (room == null || northDoor == null || southDoor == null){
+		if (room == null || northDoor == null || southDoor == null) {
 			return false;
-		} 
+		}
 
-		if (rooms.isEmpty()){
+		if (rooms.isEmpty()) {
 			return false;
 		}
 
 		for (Room preExistingRoom : rooms) {
-			if (preExistingRoom.getFurnishing().equals(room.getFurnishing()) || preExistingRoom.getAdjective().equals(room.getAdjective())) return false;
+			if (preExistingRoom.getFurnishing().equals(room.getFurnishing())
+					|| preExistingRoom.getAdjective().equals(room.getAdjective()))
+				return false;
 		}
 
-		rooms.get(rooms.size() - 1).setNorthDoor(northDoor); //Setting northernmost room in list to northDoor
+		rooms.get(rooms.size() - 1).setNorthDoor(northDoor); // Setting northernmost room in list to northDoor
 		room.setSouthDoor(southDoor);
 		rooms.add(room);
-	
+
 		return true;
 	}
 
@@ -96,14 +94,15 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * yet been initialized with setCurrentRoom, returns null.
 	 * 
 	 * @return room player is in, or null if not yet initialized
-	 */ 
+	 */
 	public Room getCurrentRoom() {
 		// TODO
-		if (currentRoom == -1) return null;
+		if (currentRoom == -1)
+			return null;
 
 		return rooms.get(currentRoom);
 	}
-	
+
 	/**
 	 * Set the current location of the player. If room does not exist in the game,
 	 * then the location of the player does not change and false is returned.
@@ -112,12 +111,13 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return true if successful, false otherwise
 	 */
 	public boolean setCurrentRoom(Room room) {
-		if (room == null || !rooms.contains(room)) return false;
+		if (room == null || !rooms.contains(room))
+			return false;
 
 		currentRoom = rooms.indexOf(room);
 		return true;
 	}
-	
+
 	/**
 	 * Get the instructions string command prompt. It returns the following prompt:
 	 * " INSTRUCTIONS (N,S,L,I,D,H) > ".
@@ -127,7 +127,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	public String getInstructionsString() {
 		return " INSTRUCTIONS (N,S,L,I,D,H) > ";
 	}
-	
+
 	/**
 	 * Processes the user command given in String cmd and returns the response
 	 * string. For the list of commands, please see the Coffee Maker Quest
@@ -135,16 +135,44 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * lower-case). For the response strings, observe the response strings printed
 	 * by coffeemaker.jar. The "N" and "S" commands potentially change the location
 	 * of the player. The "L" command potentially adds an item to the player
-	 * inventory. The "D" command drinks the coffee and ends the game. Make
-     * sure you use Player.getInventoryString() whenever you need to display
-     * the inventory.
+	 * inventory. The "D" command drinks the coffee and ends the game. Make sure you
+	 * use Player.getInventoryString() whenever you need to display the inventory.
 	 * 
 	 * @param cmd the user command
 	 * @return response string for the command
 	 */
 	public String processCommand(String cmd) {
+
+		cmd = cmd.toLowerCase();
+		String responseString = "";
+		switch (cmd) {
+			case "n":
+				if (rooms.size() > currentRoom + 1) {
+					currentRoom++;
+				} else {
+					responseString = "A door in that direction does not exist.\n";
+				}
+				return responseString;
+			case "s":
+				if (currentRoom > 0) {
+					currentRoom--;
+				} else {
+					responseString = "A door in that direction does not exist.\n";
+				}
+				return responseString;
+			case "l":
+				return responseString;
+			case "i":
+				return responseString;
+			case "h":
+				return responseString;
+			case "d":
+				return responseString;
+			default:
+				responseString = "What?";
+				return responseString;
+		}
 		// TODO
-		return "";
 	}
-	
+
 }
