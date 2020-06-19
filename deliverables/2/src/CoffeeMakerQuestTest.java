@@ -258,29 +258,69 @@ public class CoffeeMakerQuestTest {
 	
 	// TODO: Put in more unit tests of your own making to improve coverage!
 	
+	/**
+	 * Test case for String processCommand("d").
+	 * Preconditions: Player has all 3 items (coffee, cream, sugar).
+	 * Execution steps: Call cmq.processCommand("d").
+	 *                  Call cmq.isGameOver().
+	 * Postconditions: Return value of cmq.processCommand("d") is "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n".
+	 *                 Return value of cmq.isGameOver() is true.
+	 */
 	@Test
 	public void testProcessCommandDWinLower() {
-		
+		Player p = Mockito.mock(Player.class);
+		Mockito.when(p.checkCoffee()).thenReturn(true);
+		Mockito.when(p.checkSugar()).thenReturn(true);
+		Mockito.when(p.checkCream()).thenReturn(true);
+		cmq.setPlayer(p);
+		assertEquals(cmq.processCommand("d"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+		assertTrue(cmq.isGameOver());
 	}
 	
+	/**
+	 * Test case for String processCommand("d").
+	 * Preconditions: Player has no items.
+	 * Execution steps: Call cmq.processCommand("D").
+	 *                  Call cmq.isGameOver().
+	 * Postconditions: Return value of cmq.processCommand("D") is "YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n".
+	 *                 Return value of cmq.isGameOver() is true.
+	 */
 	@Test
 	public void testProcessCommandDLoseLower() {
-		
+		assertEquals(cmq.processCommand("D"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n" );
+		assertTrue(cmq.isGameOver());
 	}
 	
+	/**
+	 * Test case for String processCommand("S").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room1) has been called.
+	 * Execution steps: Call cmq.processCommand("S").
+	 *                  Call cmq.getCurrentRoom().
+	 * Postconditions: Return value of cmq.processCommand("S") is "A door in that direction does not exist.\n".
+	 *                 Return value of cmq.getCurrentRoom() is room1.
+	 */
 	@Test
 	public void testProcessCommandSUpper() {
-		
+		cmq.setCurrentRoom(room1);
+		assertEquals(cmq.processCommand("S"),"A door in that direction does not exist.\n");
+		assertEquals(cmq.getCurrentRoom(), room1);
 	}
 	
+	/**
+	 * Test case for String processCommand("n").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room4) has been called.
+	 * Execution steps: Call cmq.processCommand("n").
+	 *                  Call cmq.getCurrentRoom().
+	 * Postconditions: Return value of cmq.processCommand("n") is "".
+	 *                 Return value of cmq.getCurrentRoom() is room5.
+	 */
 	@Test
 	public void testProcessCommandNUpper() {
-		
-	}
-	
-	@Test
-	public void testProcessCommandSLower() {
-		
+		cmq.setCurrentRoom(room4);
+		assertEquals(cmq.processCommand("N"), "");
+		assertEquals(cmq.getCurrentRoom(), room5);		
 	}
 	
 	@Test
@@ -299,9 +339,19 @@ public class CoffeeMakerQuestTest {
 		
 	}
 	
+	/**
+	 * Test case for String processCommand("l").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room3) has been called.
+	 * Execution steps: Call cmq.processCommand("l").
+	 * Postconditions: Return value is "There might be something here...\nYou found some coffee!\n".
+	 *                 player.addItem(Item.COFFEE) is called.
+	 */
 	@Test
 	public void testProcessCommandLCoffee() {
-		
+		cmq.setCurrentRoom(room3);
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		Mockito.verify(player).addItem(Item.COFFEE);
 	}
 	
 	@Test
