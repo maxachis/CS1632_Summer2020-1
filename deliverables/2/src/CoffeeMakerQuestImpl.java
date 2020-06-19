@@ -71,8 +71,24 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return true if successful, false otherwise
 	 */
 	public boolean addRoomAtNorth(Room room, String northDoor, String southDoor) {
-		// TODO
-		return false;
+
+		if (room == null || northDoor == null || southDoor == null){
+			return false;
+		} 
+
+		if (rooms.isEmpty()){
+			return false;
+		}
+
+		for (Room preExistingRoom : rooms) {
+			if (preExistingRoom.getFurnishing().equals(room.getFurnishing()) || preExistingRoom.getAdjective().equals(room.getAdjective())) return false;
+		}
+
+		rooms.get(rooms.size() - 1).setNorthDoor(northDoor); //Setting northernmost room in list to northDoor
+		room.setSouthDoor(southDoor);
+		rooms.add(room);
+	
+		return true;
 	}
 
 	/**
