@@ -100,7 +100,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	public Room getCurrentRoom() {
 		// TODO
 		if (currentRoom == -1) return null;
-		
+
 		return rooms.get(currentRoom);
 	}
 	
@@ -112,8 +112,10 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return true if successful, false otherwise
 	 */
 	public boolean setCurrentRoom(Room room) {
-		// TODO
-		return false;
+		if (room == null || !rooms.contains(room)) return false;
+
+		currentRoom = rooms.indexOf(room);
+		return true;
 	}
 	
 	/**
