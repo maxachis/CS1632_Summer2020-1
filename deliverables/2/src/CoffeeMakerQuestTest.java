@@ -216,7 +216,7 @@ public class CoffeeMakerQuestTest {
 	 *                 Return value of cmq.getCurrentRoom() is room1.
 	 */
 	@Test
-	public void testProcessCommandS() {
+	public void testProcessCommandSNoDoor() {
 		cmq.setCurrentRoom(room1);
 		assertEquals(cmq.processCommand("s"),"A door in that direction does not exist.\n");
 		assertEquals(cmq.getCurrentRoom(), room1);
@@ -322,20 +322,41 @@ public class CoffeeMakerQuestTest {
 		assertEquals(cmq.getCurrentRoom(), room5);		
 	}
 	
-	@Test
-	public void testProcessCommandLUpper() {
-		
-	}
+	
 	
 	@Test
+	public void testProcessCommandLUpper() {
+		cmq.setCurrentRoom(room3);
+		assertEquals(cmq.processCommand("L"),"There might be something here...\nYou found some coffee!\n");
+		Mockito.verify(player).addItem(Item.COFFEE);
+	}
+	
+	/**
+	 * Test case for String processCommand("i").
+	 * Preconditions: None.
+	 * Execution steps: Call cmq.processCommand("i").
+	 * Postconditions: Return value is "YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n".
+	 */
+	@Test
 	public void testProcessCommandILower() {
-		
+		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 	
 	//tests if player can go south when door exists to south
+	/**
+	 * Test case for String processCommand("s").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room4) has been called.
+	 * Execution steps: Call cmq.processCommand("s").
+	 *                  Call cmq.getCurrentRoom().
+	 * Postconditions: Return value of cmq.processCommand("n") is "".
+	 *                 Return value of cmq.getCurrentRoom() is room3.
+	 */
 	@Test
 	public void testProcessCommandSDoor() {
-		
+		cmq.setCurrentRoom(room4);
+		assertEquals(cmq.processCommand("s"), "");
+		assertEquals(cmq.getCurrentRoom(), room3);		
 	}
 	
 	/**
@@ -349,7 +370,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLCoffee() {
 		cmq.setCurrentRoom(room3);
-		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some coffee!\n");
 		Mockito.verify(player).addItem(Item.COFFEE);
 	}
 	
@@ -358,65 +379,151 @@ public class CoffeeMakerQuestTest {
 	 * Preconditions: room1 ~ room6 have been added to cmq.
 	 *                cmq.setCurrentRoom(room6) has been called.
 	 * Execution steps: Call cmq.processCommand("l").
-	 * Postconditions: Return value is "There might be something here...\nYou found some coffee!\n".
+	 * Postconditions: Return value is "There might be something here...\nYou found some sugar!\n".
 	 *                 player.addItem(Item.SUGAR) is called.
 	 */
 	@Test
 	public void testProcessCommandLSugar() {
 		cmq.setCurrentRoom(room6);
-		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some sugar!\n");
 		Mockito.verify(player).addItem(Item.SUGAR);
 	}
 	
+	
+	/**
+	 * Test case for String processCommand("l").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room5) has been called.
+	 * Execution steps: Call cmq.processCommand("l").
+	 * Postconditions: Return value is "There might be something here...\nThere's nothing here :( \n".
+	 *                 player.addItem(Item.SUGAR) is not called.
+	 *                 player.addItem(Item.CREAM) is not called.
+	 *                 player.addItem(Item.COFFEE) is not called.
+	 */
 	@Test
 	public void testProcessCommandLNothing() {
-		
+		cmq.setCurrentRoom(room5);
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nThere's nothing here :( \n");
+		Mockito.verify(player, times(0)).addItem(Item.SUGAR);
+		Mockito.verify(player, times(0)).addItem(Item.CREAM);
+		Mockito.verify(player, times(0)).addItem(Item.COFFEE);
 	}
 	
+	/**
+	 * Test case for String processCommand("n").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room6) has been called.
+	 * Execution steps: Call cmq.processCommand("n").
+	 *                  Call cmq.getCurrentRoom().
+	 * Postconditions: Return value of cmq.processCommand("n") is "There is no door there.".
+	 *                 Return value of cmq.getCurrentRoom() is room5.
+	 */
 	@Test
 	public void testProcessCommandNNoDoor() {
-		
+		cmq.setCurrentRoom(room6);
+		assertEquals(cmq.processCommand("n"), "A door in that direction does not exist.\n");
+		assertEquals(cmq.getCurrentRoom(), room6);
 	}
 	
+	/**
+	 * Test case for String processCommand("H").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand("H").
+	 * Postconditions: Return value of cmq.processCommand("H") is "L: Look for items\n N: Go North\n S: Go South\n D: Drink coffee\n I: Check inventory\n".
+	 */
 	@Test
 	public void testProcessCommandHUpper() {
-		
+		assertEquals(cmq.processCommand("H"), "L: Look for items\n N: Go North\n S: Go South\n D: Drink coffee\n I: Check inventory\n");
 	}
 	
+	/**
+	 * Test case for String processCommand("h").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand("h").
+	 * Postconditions: Return value of cmq.processCommand("h") is "L: Look for items\n N: Go North\n S: Go South\n D: Drink coffee\n I: Check inventory\n".
+	 */
 	@Test
 	public void testProcessCommandHLower() {
-		
+		assertEquals(cmq.processCommand("h"), "L: Look for items\n N: Go North\n S: Go South\n D: Drink coffee\n I: Check inventory\n");
 	}
 	
+	/**
+	 * Test case for String processCommand("g").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand("g").
+	 * Postconditions: Return value of cmq.processCommand("g") is "What?".
+	 */
 	@Test
 	public void testProcessCommandInvalidLetter() {
-		
+		assertEquals(cmq.processCommand("g"), "What?");
 	}
 	
+	/**
+	 * Test case for String processCommand("5").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand("5").
+	 * Postconditions: Return value of cmq.processCommand("5") is "What?".
+	 */
 	@Test
 	public void testProcessCommandInvalidNum() {
-		
+		assertEquals(cmq.processCommand("5"), "What?");		
 	}
 	
+	/**
+	 * Test case for String processCommand(" ").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand(" ").
+	 * Postconditions: Return value of cmq.processCommand(" ") is "What?".
+	 */
 	@Test
 	public void testProcessCommandInvalidSpace() {
-		
+		assertEquals(cmq.processCommand(" "), "What?");				
 	}
 	
+	/**
+	 * Test case for String processCommand("!").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 * Execution steps: Call cmq.processCommand("!").
+	 * Postconditions: Return value of cmq.processCommand("!") is "What?".
+	 */
 	@Test
 	public void testProcessCommandInvalidSpecialChar() {
-		
+		assertEquals(cmq.processCommand("!"), "What?");		
 	}
 	
+	/**
+	 * Test case for String processCommand("I").
+	 * Preconditions: Player has all 3 items (coffee, cream, sugar).
+	 * Execution steps: Call cmq.processCommand("I").
+	 * Postconditions: Return value is "YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n".
+	 */
 	@Test
 	public void testProcessCommandIAllItems() {
-		
+		Player p = Mockito.mock(Player.class);
+		Mockito.when(p.checkCoffee()).thenReturn(true);
+		Mockito.when(p.checkSugar()).thenReturn(true);
+		Mockito.when(p.checkCream()).thenReturn(true);
+		cmq.setPlayer(p);
+		assertEquals(cmq.processCommand("I"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 	}
-	
-	//	Attempt to obtain Cream multiple times
+
+
+	/**
+	 * Test case for String processCommand("l").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room1) has been called.
+	 * Execution steps: Call cmq.processCommand("l").
+	 * 					Call cmq.processCommand("l").
+	 * Postconditions: 1st Return value is "There might be something here...\nYou found some coffee!\n".
+	 * 				   2nd Return value is "There might be something here...\nThere's nothing here :( \n".
+	 *                 player.addItem(Item.CREAM) is called, only once.
+	 */
 	@Test
 	public void testProcessCommandLCreamRepeated() {
-		
+		cmq.setCurrentRoom(room1);
+		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		assertEquals(cmq.processCommand("l"),"There might be something here...\\nThere's nothing here :( \\n");
+		Mockito.verify(player, times(1)).addItem(Item.CREAM);
 	}
 	
 	@Test
