@@ -154,19 +154,63 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 				}
 				return responseString;
 			case "s":
-				if (currentRoom > 0) {
+				if (currentRoom > 0) { // Ensuring a room actually exists
 					currentRoom--;
 				} else {
 					responseString = "A door in that direction does not exist.\n";
 				}
 				return responseString;
 			case "l":
+				if (getCurrentRoom().getItem() != Item.NONE) {
+					responseString = "There might be something here...\nYou found some ";
+					switch (getCurrentRoom().getItem()) {
+						case CREAM:
+							responseString = responseString + "caffeinated coffee!\n";
+							break;
+						case SUGAR:
+							responseString = responseString + "sweet sugar!\n";
+							break;
+						case COFFEE:
+							responseString = responseString + "creamy cream!\n";
+							break;
+						default:
+							break;
+					}
+
+				} else {
+					responseString = "You don't see anything out of the ordinary.\n";
+				}
 				return responseString;
+
 			case "i":
+				responseString = player.getInventoryString();
 				return responseString;
 			case "h":
+			responseString = "N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n";
 				return responseString;
 			case "d":
+				responseString = player.getInventoryString() + "\n";
+				
+				if (player.checkCoffee() && player.checkCream() && player.checkSugar()){
+					responseString = responseString + "You drink the beverage and are ready to study!\nYou win!\n";
+					return responseString;
+				}else if(player.checkCoffee() && player.checkCream()){
+					responseString = responseString + "Without sugar, the coffee is too bitter. You cannot study.\n";
+				}else if (player.checkSugar() && player.checkCream()){
+					responseString = responseString + "You drink the sweetened cream, but without caffeine you cannot study.\n";
+				}else if (player.checkCoffee() && player.checkSugar()){
+					responseString = responseString + "Without cream, you get an ulcer and cannot study.\n";
+				}else if (player.checkCoffee()){
+					responseString = responseString + "Without cream, you get an ulcer and cannot study.\n";
+				}else if (player.checkCream()){
+					responseString = responseString + "You drink the cream, but without caffeine, you cannot study.\n";
+
+				}else if (player.checkSugar()){
+					responseString = responseString + "You eat the sugar, but without caffeine, you cannot study.\n";
+
+				}else{
+					responseString = responseString + "You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\n";
+				}
 				return responseString;
 			default:
 				responseString = "What?";
