@@ -172,12 +172,10 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandI() {
-		Player player = Mockito.mock(Player.class);
 		Mockito.when(player.checkCoffee()).thenReturn(false);
 		Mockito.when(player.checkSugar()).thenReturn(false);
 		Mockito.when(player.checkCream()).thenReturn(false);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		cmq.setPlayer(player);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n", cmq.processCommand("I"));
 	}
@@ -192,8 +190,6 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandLCream() {
-		Player player = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
 		cmq.setCurrentRoom(room1);
 		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
 		Mockito.verify(player).addItem(Item.CREAM);
@@ -298,9 +294,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDLoseLower() {
-		Player player = Mockito.mock(Player.class);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		cmq.setPlayer(player);
 		assertEquals(cmq.processCommand("d"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n" );
 		assertTrue(cmq.isGameOver());
 	}
@@ -341,8 +335,6 @@ public class CoffeeMakerQuestTest {
 	
 	@Test
 	public void testProcessCommandLUpper() {
-		Player player = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
 		cmq.setCurrentRoom(room3);
 		assertEquals(cmq.processCommand("L"),"There might be something here...\nYou found some caffeinated coffee!\n");
 		Mockito.verify(player).addItem(Item.COFFEE);
@@ -356,12 +348,10 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandILower() {
-		Player player = Mockito.mock(Player.class);
 		Mockito.when(player.checkCoffee()).thenReturn(false);
 		Mockito.when(player.checkSugar()).thenReturn(false);
 		Mockito.when(player.checkCream()).thenReturn(false);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		cmq.setPlayer(player);
 		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 	
@@ -392,8 +382,6 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandLCoffee() {
-		Player player = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
 		cmq.setCurrentRoom(room3);
 		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some caffeinated coffee!\n");
 		Mockito.verify(this.player).addItem(Item.COFFEE);
@@ -409,8 +397,6 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandLSugar() {
-		Player player = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
 		cmq.setCurrentRoom(room6);
 		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some sweet sugar!\n");
 		Mockito.verify(player).addItem(Item.SUGAR);

@@ -165,19 +165,17 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 					switch (getCurrentRoom().getItem()) {
 						case CREAM:
 							responseString = responseString + "creamy cream!\n";
-							this.player.addItem(Item.CREAM);
+							player.addItem(Item.CREAM);
 							break;
 						case SUGAR:
-							responseString = responseString + "sugar!\n";
+							responseString = responseString + "sweet sugar!\n";
 							player.addItem(Item.SUGAR);
-							this.player.addItem(Item.SUGAR);
 							break;
 						case COFFEE:
 							responseString = responseString + "caffeinated coffee!\n";
-							this.player.addItem(Item.COFFEE);
+							player.addItem(Item.COFFEE);
 							break;
 						case NONE:
-							assert false;
 							break;
 					}
 
