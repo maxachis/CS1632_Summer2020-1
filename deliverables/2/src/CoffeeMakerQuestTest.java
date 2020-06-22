@@ -518,40 +518,20 @@ public class CoffeeMakerQuestTest {
 		assertEquals(cmq.processCommand("I"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 	}
 
-
-	/**
-	 * Test case for String processCommand("l").
-	 * Preconditions: room1 ~ room6 have been added to cmq.
-	 *                cmq.setCurrentRoom(room1) has been called.
-	 * Execution steps: Call cmq.processCommand("l").
-	 * 					Call cmq.processCommand("l").
-	 * Postconditions: 1st Return value is "There might be something here...\nYou found some coffee!\n".
-	 * 				   2nd Return value is "There might be something here...\nThere's nothing here :( \n".
-	 *                 player.addItem(Item.CREAM) is called, only once.
+		/**
+	 * Test case for private method getDrinkString().
+	 * Preconditions: Player has all 3 items (coffee, cream, sugar).
+	 * Execution steps: Call cmq.processCommand("D").
+	 * Postconditions: Return value is "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n". If this string is returned, the private method has been called.
 	 */
-//	@Test
-//	public void testProcessCommandLCreamRepeated() {
-//		Player player = Mockito.mock(Player.class);
-//		cmq.setPlayer(player);
-//		cmq.setCurrentRoom(room1);
-//		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
-//		assertEquals(cmq.processCommand("l"),"You don't see anything out of the ordinary.\n");
-//		Mockito.verify(player, times(1)).addItem(Item.CREAM);
-//	}
-//	
-//	@Test
-//	public void testProcessUniqueDoors() {
-//		
-//	}
-//	
-//	@Test
-//	public void testProcessUniqueFurnishings() {
-//		
-//	}
-//	
-//	public void testProcessUniqueAdjectives() {
-//		
-//	}
+	@Test
+	public void testGetDrinkString() {
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
+		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+	}
 	
 	
 }
