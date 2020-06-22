@@ -172,6 +172,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandI() {
+		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n", cmq.processCommand("I"));
 	}
 	
@@ -339,6 +340,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandILower() {
+		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 	
