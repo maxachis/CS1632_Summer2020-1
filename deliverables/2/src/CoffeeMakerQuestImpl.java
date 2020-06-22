@@ -165,13 +165,13 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 					responseString = "There might be something here...\nYou found some ";
 					switch (getCurrentRoom().getItem()) {
 						case CREAM:
-							responseString = responseString + "caffeinated coffee!\n";
+						responseString = responseString + "creamy cream!\n";
 							break;
 						case SUGAR:
 							responseString = responseString + "sweet sugar!\n";
 							break;
 						case COFFEE:
-							responseString = responseString + "creamy cream!\n";
+							responseString = responseString + "caffeinated coffee!\n";
 							break;
 						default:
 							break;
