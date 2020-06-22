@@ -176,7 +176,6 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(false);
 		Mockito.when(player.checkCream()).thenReturn(false);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n", cmq.processCommand("I"));
 	}
 	
@@ -415,8 +414,6 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandLNothing() {
-		Player player = Mockito.mock(Player.class);
-		cmq.setPlayer(player);
 		cmq.setCurrentRoom(room5);
 		assertEquals(cmq.processCommand("l"),"You don't see anything out of the ordinary.\n");
 		Mockito.verify(player, times(0)).addItem(Item.SUGAR);
@@ -510,13 +507,14 @@ public class CoffeeMakerQuestTest {
 	 * Test case for String processCommand("I").
 	 * Preconditions: Player has all 3 items (coffee, cream, sugar).
 	 * Execution steps: Call cmq.processCommand("I").
-	 * Postconditions: Return value is "YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n".
+	 * Postconditions: Return value is "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n".
 	 */
 	@Test
 	public void testProcessCommandIAllItems() {
 		Mockito.when(player.checkCoffee()).thenReturn(true);
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 		assertEquals(cmq.processCommand("I"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 	}
 
