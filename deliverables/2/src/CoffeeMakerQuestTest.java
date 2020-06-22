@@ -190,7 +190,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLCream() {
 		cmq.setCurrentRoom(room1);
-		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some creamy cream!\n");
+		assertEquals("There might be something here...\nYou found some creamy cream!\n", cmq.processCommand("l"));
 		Mockito.verify(player).addItem(Item.CREAM);
 	}
 	
@@ -206,7 +206,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandN() {
 		cmq.setCurrentRoom(room4);
-		assertEquals(cmq.processCommand("n"), "");
+		assertEquals("", cmq.processCommand("n"));
 		assertEquals(cmq.getCurrentRoom(), room5);
 	}
 	
@@ -222,7 +222,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandSNoDoor() {
 		cmq.setCurrentRoom(room1);
-		assertEquals(cmq.processCommand("s"),"A door in that direction does not exist.\n");
+		assertEquals("A door in that direction does not exist.\n", cmq.processCommand("s"));
 		assertEquals(cmq.getCurrentRoom(), room1);
 	}
 	
@@ -258,7 +258,7 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
 		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
-		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+		assertEquals("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n", cmq.processCommand("D"));
 		assertTrue(cmq.isGameOver());
 	}
 	
@@ -278,7 +278,7 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
 		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
-		assertEquals(cmq.processCommand("d"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+		assertEquals("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n", cmq.processCommand("d"));
 		assertTrue(cmq.isGameOver());
 
 	}
@@ -294,7 +294,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandDLoseLower() {
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		assertEquals(cmq.processCommand("d"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n" );
+		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n", cmq.processCommand("d"));
 		assertTrue(cmq.isGameOver());
 	}
 	
@@ -310,7 +310,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandSUpper() {
 		cmq.setCurrentRoom(room1);
-		assertEquals(cmq.processCommand("S"),"A door in that direction does not exist.\n");
+		assertEquals("A door in that direction does not exist.\n", cmq.processCommand("S"));
 		assertEquals(cmq.getCurrentRoom(), room1);
 	}
 	
@@ -326,7 +326,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandNUpper() {
 		cmq.setCurrentRoom(room4);
-		assertEquals(cmq.processCommand("N"), "");
+		assertEquals("", cmq.processCommand("N"));
 		assertEquals(cmq.getCurrentRoom(), room5);		
 	}
 	
@@ -335,7 +335,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLUpper() {
 		cmq.setCurrentRoom(room3);
-		assertEquals(cmq.processCommand("L"),"There might be something here...\nYou found some caffeinated coffee!\n");
+		assertEquals("There might be something here...\nYou found some caffeinated coffee!\n", cmq.processCommand("L"));
 		Mockito.verify(player).addItem(Item.COFFEE);
 	}
 	
@@ -351,7 +351,7 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(false);
 		Mockito.when(player.checkCream()).thenReturn(false);
 		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n", cmq.processCommand("I"));
 	}
 	
 	//tests if player can go south when door exists to south
@@ -367,7 +367,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandSDoor() {
 		cmq.setCurrentRoom(room4);
-		assertEquals(cmq.processCommand("s"), "");
+		assertEquals("", cmq.processCommand("s"));
 		assertEquals(cmq.getCurrentRoom(), room3);		
 	}
 	
@@ -382,7 +382,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLCoffee() {
 		cmq.setCurrentRoom(room3);
-		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some caffeinated coffee!\n");
+		assertEquals("There might be something here...\nYou found some caffeinated coffee!\n", cmq.processCommand("l"));
 		Mockito.verify(this.player).addItem(Item.COFFEE);
 	}
 	
@@ -397,7 +397,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLSugar() {
 		cmq.setCurrentRoom(room6);
-		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some sweet sugar!\n");
+		assertEquals("There might be something here...\nYou found some sweet sugar!\n", cmq.processCommand("l"));
 		Mockito.verify(player).addItem(Item.SUGAR);
 	}
 	
@@ -415,7 +415,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandLNothing() {
 		cmq.setCurrentRoom(room5);
-		assertEquals(cmq.processCommand("l"),"You don't see anything out of the ordinary.\n");
+		assertEquals("You don't see anything out of the ordinary.\n", cmq.processCommand("l"));
 		Mockito.verify(player, times(0)).addItem(Item.SUGAR);
 		Mockito.verify(player, times(0)).addItem(Item.CREAM);
 		Mockito.verify(player, times(0)).addItem(Item.COFFEE);
@@ -433,7 +433,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandNNoDoor() {
 		cmq.setCurrentRoom(room6);
-		assertEquals(cmq.processCommand("n"), "A door in that direction does not exist.\n");
+		assertEquals("A door in that direction does not exist.\n", cmq.processCommand("n"));
 		assertEquals(cmq.getCurrentRoom(), room6);
 	}
 	
@@ -445,7 +445,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandHUpper() {
-		assertEquals(cmq.processCommand("H"), "N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n");
+		assertEquals("N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n", cmq.processCommand("H"));
 	}
 	
 	/**
@@ -456,7 +456,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandHLower() {
-		assertEquals(cmq.processCommand("h"), "N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n");
+		assertEquals("N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n", cmq.processCommand("h"));
 	}
 	
 	/**
@@ -467,7 +467,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandInvalidLetter() {
-		assertEquals(cmq.processCommand("g"), "What?");
+		assertEquals("What?", cmq.processCommand("g"));
 	}
 	
 	/**
@@ -478,7 +478,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandInvalidNum() {
-		assertEquals(cmq.processCommand("5"), "What?");		
+		assertEquals("What?", cmq.processCommand("5"));		
 	}
 	
 	/**
@@ -489,7 +489,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandInvalidSpace() {
-		assertEquals(cmq.processCommand(" "), "What?");				
+		assertEquals("What?", cmq.processCommand(" "));				
 	}
 	
 	/**
@@ -500,7 +500,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandInvalidSpecialChar() {
-		assertEquals(cmq.processCommand("!"), "What?");		
+		assertEquals("What?", cmq.processCommand("!"));		
 	}
 	
 	/**
@@ -515,7 +515,7 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
 		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
-		assertEquals(cmq.processCommand("I"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
+		assertEquals("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n", cmq.processCommand("I"));
 	}
 
 		/**
@@ -530,7 +530,7 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
 		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
-		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
+		assertEquals("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n", cmq.processCommand("D"));
 	}
 	
 	
