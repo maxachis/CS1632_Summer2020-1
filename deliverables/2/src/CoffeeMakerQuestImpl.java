@@ -192,32 +192,33 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 				return responseString;
 			case "d":
 				this.gameOver = true;
-				responseString = player.getInventoryString() + "\n";
-				gameOver = true;
-				if (player.checkCoffee() && player.checkCream() && player.checkSugar()){
-					responseString = responseString + "You drink the beverage and are ready to study!\nYou win!\n";
-					return responseString;
-				}else if(player.checkCoffee() && player.checkCream()){
-					responseString = responseString + "Without sugar, the coffee is too bitter. You cannot study.\nYou lose!\n";
-				}else if (player.checkSugar() && player.checkCream()){
-					responseString = responseString + "You drink the sweetened cream, but without caffeine you cannot study.\nYou lose!\n";
-				}else if (player.checkCoffee() && player.checkSugar()){
-					responseString = responseString + "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
-				}else if (player.checkCoffee()){
-					responseString = responseString + "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
-				}else if (player.checkCream()){
-					responseString = responseString + "You drink the cream, but without caffeine, you cannot study.\nYou lose!\n";
-				}else if (player.checkSugar()){
-					responseString = responseString + "You eat the sugar, but without caffeine, you cannot study.\nYou lose!\n";
-				}else{
-					responseString = responseString + "You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n";
-				}
+				responseString = player.getInventoryString() + "\n" + getDrinkString(player);
 				return responseString;
 			default:
 				responseString = "What?";
 				return responseString;
 		}
 		// TODO
+	}
+
+	private String getDrinkString(Player p){ //Private method
+		if (p.checkCoffee() && p.checkCream() && p.checkSugar()){
+			return "You drink the beverage and are ready to study!\nYou win!\n";
+		}else if(p.checkCoffee() && p.checkCream()){
+			return "Without sugar, the coffee is too bitter. You cannot study.\nYou lose!\n";
+		}else if (p.checkSugar() && p.checkCream()){
+			return "You drink the sweetened cream, but without caffeine you cannot study.\nYou lose!\n";
+		}else if (p.checkCoffee() && p.checkSugar()){
+			return "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
+		}else if (p.checkCoffee()){
+			return "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
+		}else if (p.checkCream()){
+			return "You drink the cream, but without caffeine, you cannot study.\nYou lose!\n";
+		}else if (p.checkSugar()){
+			return "You eat the sugar, but without caffeine, you cannot study.\nYou lose!\n";
+		}else{
+			return "You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n";
+		}
 	}
 
 }
