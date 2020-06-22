@@ -13,7 +13,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 
 	CoffeeMakerQuestImpl() {
 		this.player = null;
-		this.rooms = new ArrayList();
+		this.rooms = new ArrayList<Room>();
 		this.gameOver = false;
 		this.currentRoom = -1;
 	}
@@ -96,7 +96,6 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	 * @return room player is in, or null if not yet initialized
 	 */
 	public Room getCurrentRoom() {
-		// TODO
 		if (currentRoom == -1)
 			return null;
 
@@ -166,14 +165,18 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 					switch (getCurrentRoom().getItem()) {
 						case CREAM:
 						responseString = responseString + "creamy cream!\n";
+						player.addItem(Item.CREAM);
 							break;
 						case SUGAR:
-							responseString = responseString + "sweet sugar!\n";
+							responseString = responseString + "sugar!\n";
+							player.addItem(Item.SUGAR);
 							break;
 						case COFFEE:
-							responseString = responseString + "caffeinated coffee!\n";
+							responseString = responseString + "coffee!\n";
+							player.addItem(Item.COFFEE);
 							break;
-						default:
+						case NONE:
+							assert false;
 							break;
 					}
 
@@ -183,7 +186,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 				return responseString;
 
 			case "i":
-				responseString = player.getInventoryString();
+				responseString = this.player.getInventoryString();
 				return responseString;
 			case "h":
 			responseString = "N - Go north\nS - Go south\nL - Look and collect any items in the room\nI - Show inventory of items collected\nD - Drink coffee made from items in inventory\n";

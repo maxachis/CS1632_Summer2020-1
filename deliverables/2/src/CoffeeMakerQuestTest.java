@@ -19,15 +19,15 @@ public class CoffeeMakerQuestTest {
 	@Before
 	public void setup() {
 		// 0. Turn on bug injection for Player and Room.
-		Config.setBuggyPlayer(true);
-		Config.setBuggyRoom(true);
+		// Config.setBuggyPlayer(true);
+		// Config.setBuggyRoom(true);
 		
 		// 1. Create the Coffee Maker Quest object and assign to cmq.
 		cmq = CoffeeMakerQuest.createInstance();
 
 		// TODO: 2. Create a mock Player and assign to player and call cmq.setPlayer(player). 
 		// Player should not have any items (no coffee, no cream, no sugar)
-		Player player = Mockito.mock(Player.class);
+		player = Mockito.mock(Player.class);
 		cmq.setPlayer(player);
 
 		// TODO: 3. Create mock Rooms and assign to room1, room2, ..., room6.
@@ -172,7 +172,7 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandI() {
-		assertEquals(cmq.processCommand("I"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n", cmq.processCommand("I"));
 	}
 	
 	/**
@@ -371,7 +371,7 @@ public class CoffeeMakerQuestTest {
 	public void testProcessCommandLCoffee() {
 		cmq.setCurrentRoom(room3);
 		assertEquals(cmq.processCommand("l"),"There might be something here...\nYou found some coffee!\n");
-		Mockito.verify(player).addItem(Item.COFFEE);
+		Mockito.verify(this.player).addItem(Item.COFFEE);
 	}
 	
 	/**
