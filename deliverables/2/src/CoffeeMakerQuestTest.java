@@ -103,7 +103,7 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testAddFirstRoom() {
 		Room myRoom = Mockito.mock(Room.class);
-		assertEquals(cmq.addFirstRoom(myRoom), false);
+		assertFalse(cmq.addFirstRoom(myRoom));
 	}
 	
 	/**
