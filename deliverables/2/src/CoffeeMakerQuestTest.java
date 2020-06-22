@@ -233,7 +233,11 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDLose() {
-		assertEquals(cmq.processCommand("D"),"YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n" );
+		Mockito.when(player.checkCoffee()).thenReturn(false);
+		Mockito.when(player.checkCream()).thenReturn(false);
+		Mockito.when(player.checkSugar()).thenReturn(false);
+		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEquals("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n",cmq.processCommand("D") );
 		assertTrue(cmq.isGameOver());
 	}
 	
@@ -247,11 +251,10 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDWin() {
-		Player player = Mockito.mock(Player.class);
 		Mockito.when(player.checkCoffee()).thenReturn(true);
 		Mockito.when(player.checkSugar()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
-		cmq.setPlayer(player);
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 		assertEquals(cmq.processCommand("D"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
 		assertTrue(cmq.isGameOver());
 	}
@@ -268,11 +271,10 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDWinLower() {
-		Player p = Mockito.mock(Player.class);
-		Mockito.when(p.checkCoffee()).thenReturn(true);
-		Mockito.when(p.checkSugar()).thenReturn(true);
-		Mockito.when(p.checkCream()).thenReturn(true);
-		cmq.setPlayer(p);
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 		assertEquals(cmq.processCommand("d"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n");
 		assertTrue(cmq.isGameOver());
 	}
@@ -501,11 +503,9 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandIAllItems() {
-		Player p = Mockito.mock(Player.class);
-		Mockito.when(p.checkCoffee()).thenReturn(true);
-		Mockito.when(p.checkSugar()).thenReturn(true);
-		Mockito.when(p.checkCream()).thenReturn(true);
-		cmq.setPlayer(p);
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
 		assertEquals(cmq.processCommand("I"), "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
 	}
 

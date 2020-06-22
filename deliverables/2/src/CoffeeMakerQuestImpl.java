@@ -193,7 +193,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 				return responseString;
 			case "d":
 				responseString = player.getInventoryString() + "\n";
-				
+				gameOver = true;
 				if (player.checkCoffee() && player.checkCream() && player.checkSugar()){
 					responseString = responseString + "You drink the beverage and are ready to study!\nYou win!\n";
 					return responseString;
@@ -212,7 +212,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 					responseString = responseString + "You eat the sugar, but without caffeine, you cannot study.\n";
 
 				}else{
-					responseString = responseString + "You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\n";
+					responseString = responseString + "You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n";
 				}
 				return responseString;
 			default:
