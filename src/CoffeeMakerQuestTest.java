@@ -210,7 +210,7 @@ public class CoffeeMakerQuestTest {
 		assertEquals("", cmq.processCommand("n"));
 		assertEquals(cmq.getCurrentRoom(), room5);
 	}
-	
+		
 	/**
 	 * Test case for String processCommand("s").
 	 * Preconditions: room1 ~ room6 have been added to cmq.
@@ -221,7 +221,7 @@ public class CoffeeMakerQuestTest {
 	 *                 Return value of cmq.getCurrentRoom() is room1.
 	 */
 	@Test
-	public void testProcessCommandSNoDoor() {
+	public void testProcessCommandS() {
 		cmq.setCurrentRoom(room1);
 		assertEquals("A door in that direction does not exist.\n", cmq.processCommand("s"));
 		assertEquals(cmq.getCurrentRoom(), room1);
